@@ -8,7 +8,9 @@ import SEO from '../components/seo';
 import NotFound from '../pages/404';
 
 const Index = ({ data }) => {
-  const posts = data.allMarkdownRemark.edges;
+  const posts = data.allMarkdownRemark.edges.filter(
+    (edge) => edge.node.frontmatter.type === 'blog'
+  );
   const noBlog = !posts || !posts.length;
 
   if (!posts || !posts.length) {
@@ -47,6 +49,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
+            type
             date(formatString: "MMMM DD, YYYY")
             title
             description

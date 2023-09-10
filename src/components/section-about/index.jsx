@@ -2,10 +2,10 @@ import React from 'react';
 
 import Section from '../section';
 
-const SectionAbout = ({ about }) => {
+const SectionAbout = ({ about, extended = false }) => {
   return (
-    <Section title="About Me">
-      <div className="mb-6">
+    <Section title={extended ? '' : 'About Me'}>
+      <div className="mb-6" style={{ whiteSpace: 'pre-line' }}>
         <p>{about}</p>
       </div>
     </Section>

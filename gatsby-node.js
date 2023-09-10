@@ -4,7 +4,8 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const blogPost = path.resolve(`./src/templates/blog-post.jsx`);
+  const projectTemplate = path.resolve(`./src/templates/project.jsx`);
+  const blogPostTemplate = path.resolve(`./src/templates/blog-post.jsx`);
   const result = await graphql(
     `
       {
@@ -18,6 +19,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 slug
               }
               frontmatter {
+                type
                 title
               }
             }
@@ -31,8 +33,32 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors;
   }
 
+  const projects = result.data.allMarkdownRemark.edges.filter(
+    (edge) => edge.node.frontmatter.type === 'project'
+  );
+  const posts = result.data.allMarkdownRemark.edges.filter(
+    (edge) => edge.node.frontmatter.type === 'blog'
+  );
+
+  // Create projects pages.
+
+  projects.forEach((project, index) => {
+    const previous =
+      index === projects.length - 1 ? null : projects[index + 1].node;
+    const next = index === 0 ? null : projects[index - 1].node;
+
+    createPage({
+      path: project.node.fields.slug,
+      component: projectTemplate,
+      context: {
+        slug: project.node.fields.slug,
+        previous,
+        next,
+      },
+    });
+  });
+
   // Create blog posts pages.
-  const posts = result.data.allMarkdownRemark.edges;
 
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node;
@@ -40,7 +66,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     createPage({
       path: post.node.fields.slug,
-      component: blogPost,
+      component: blogPostTemplate,
       context: {
         slug: post.node.fields.slug,
         previous,
@@ -55,10 +81,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
+    const slugPrefix = node.frontmatter.type === 'blog' ? '/blog' : '/projects';
     createNodeField({
       name: `slug`,
       node,
-      value: `/blog${value}`,
+      value: `${slugPrefix}${value}`,
     });
   }
 };
@@ -92,6 +119,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type Frontmatter {
+      type: String
       title: String
       description: String
       date: Date @dateformat
