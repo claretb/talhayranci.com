@@ -12,6 +12,7 @@ import SEO from '../components/seo';
 
 const Index = ({ data }) => {
   const extendedAbout = get(data, 'site.siteMetadata.extendedAbout', false);
+  const resumeLink = get(data, 'site.siteMetadata.resumeLink', false);
   const education = get(data, 'site.siteMetadata.education', false);
   const experience = get(data, 'site.siteMetadata.experience', false);
   const skills = get(data, 'site.siteMetadata.skills', false);
@@ -20,7 +21,13 @@ const Index = ({ data }) => {
     <Layout>
       <SEO title={'About'} />
       <Header metadata={data.site.siteMetadata} />
-      {extendedAbout && <SectionAbout about={extendedAbout} extended={true} />}
+      {extendedAbout && (
+        <SectionAbout
+          about={extendedAbout}
+          extended={true}
+          resumeLink={resumeLink}
+        />
+      )}
       {education && education.length && (
         <SectionEducation education={education} />
       )}
@@ -46,6 +53,7 @@ export const pageQuery = graphql`
         github
         linkedin
         extendedAbout
+        resumeLink
         education {
           date
           name

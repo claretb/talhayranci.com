@@ -21,7 +21,7 @@ const Project = ({ data }) => {
       <SEO title={post.frontmatter.title} />
       <h1 className={classes.title}>{post.frontmatter.title}</h1>
       <p className={classes.date}>
-        Posted on {moment(post.frontmatter.date).format('MMMM D, YYYY')}
+        Created on {moment(post.frontmatter.date).format('MMMM D, YYYY')}
       </p>
       <div
         className={classes.wrapper}
@@ -51,6 +51,7 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 160)
       html
       frontmatter {
+        type
         title
         date(formatString: "MMMM DD, YYYY")
         description

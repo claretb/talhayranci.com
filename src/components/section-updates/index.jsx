@@ -5,7 +5,7 @@ import SummaryItem from '../summary-item';
 
 const SectionUpdates = ({ updates }) => {
   return (
-    <Section title="Updates">
+    <Section title="Last Updates">
       {updates.map((update) => (
         <SummaryItem
           key={update.name}
