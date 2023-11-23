@@ -4,7 +4,7 @@ import React from 'react';
 import Projects from '../components/projects';
 import Header from '../components/header';
 import Layout from '../components/layout';
-import SEO from '../components/seo';
+import Seo from '../components/seo';
 import NotFound from '../pages/404';
 
 const Index = ({ data }) => {
@@ -19,7 +19,7 @@ const Index = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Projects" />
+      <Seo title="Projects" />
       <Header metadata={data.site.siteMetadata} />
       {!noProject && <Projects projects={projects} />}
     </Layout>
@@ -29,7 +29,7 @@ const Index = ({ data }) => {
 export default Index;
 
 export const pageQuery = graphql`
-  query {
+  query Projects {
     site {
       siteMetadata {
         name
@@ -41,7 +41,7 @@ export const pageQuery = graphql`
         linkedin
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
       edges {
         node {
           excerpt

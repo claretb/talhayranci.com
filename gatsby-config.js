@@ -15,7 +15,7 @@ module.exports = {
     // Optional: LinkedIn account URL
     linkedin: `https://www.linkedin.com/in/talhayranci/`,
     // Content of the About Me section
-    about: `I am a second-year PhD student in Computing Science at the University of Glasgow, under the supervision of Dr. Jonathan Grizou and Dr. Mireilla Bikanga Ada. My research focuses on educational robotics.
+    about: `I am a second-year PhD student in Computing Science at the University of Glasgow, under the supervision of Dr. Jonathan Grizou and Dr. Mireilla Bikanga Ada. My research focuses on tangible machine learning education.
             \nApart from research, I like writing blogs, watching and playing football and exploring the beautiful places of Scotland. I also have a beginner's level interest in the philosophy of science.`,
     extendedAbout: `You can find a brief overview of my background below. For a detailed CV, please click the resume link below.
                     \nDon't hesitate to reach out to me through any of the contact channels above. I'm always open to engaging in discussions and sharing thoughts with others. Feel free to start conversations on any topics that align with my interests.`,
@@ -149,8 +149,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `devfolio`,
-        short_name: `devfolio`,
+        name: `talhayranci.com`,
+        short_name: `talhayranci.com`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`, // This color appears on mobile

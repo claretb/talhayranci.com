@@ -1,23 +1,11 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { IGatsbyImageData } from 'gatsby-plugin-image';
-
-import BlogPosts from '../components/blog-posts';
 import Header from '../components/header';
 import Layout from '../components/layout';
-import SEO from '../components/seo';
-import NotFound from '../pages/404';
+import Seo from '../components/seo';
 import Gallery from '@browniebroke/gatsby-image-gallery';
 
 const Index = ({ data }) => {
-  //   const posts = data.allMarkdownRemark.edges.filter(
-  //     (edge) => edge.node.frontmatter.type === 'blog'
-  //   );
-  //   const noBlog = !posts || !posts.length;
-
-  //   if (!posts || !posts.length) {
-  //     return <NotFound />;
-  //   }
   const images = data.images.edges.map(({ node }, index) => ({
     ...node.childImageSharp,
     // Generate name based on the index as caption.
@@ -26,7 +14,7 @@ const Index = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Aesthetics" />
+      <Seo title="Aesthetics" />
       <Header metadata={data.site.siteMetadata} />
       <br />
       <Gallery images={images} />
@@ -37,7 +25,7 @@ const Index = ({ data }) => {
 export default Index;
 
 export const pageQuery = graphql`
-  query CombinedQuery {
+  query Aesthetics {
     site {
       siteMetadata {
         name
@@ -50,7 +38,7 @@ export const pageQuery = graphql`
       }
     }
     images: allFile(
-      filter: { relativeDirectory: { eq: "gallery" } }
+      filter: { relativeDirectory: { eq: "gallery" }}
       sort: { fields: name, order: DESC }
     ) {
       edges {

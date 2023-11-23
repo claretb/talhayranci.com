@@ -8,7 +8,7 @@ import SectionAbout from '../components/section-about';
 import SectionEducation from '../components/section-education';
 import SectionExperience from '../components/section-experience';
 import SectionSkills from '../components/section-skills';
-import SEO from '../components/seo';
+import Seo from '../components/seo';
 
 const Index = ({ data }) => {
   const extendedAbout = get(data, 'site.siteMetadata.extendedAbout', false);
@@ -19,7 +19,7 @@ const Index = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title={'About'} />
+      <Seo title={'About'} />
       <Header metadata={data.site.siteMetadata} />
       {extendedAbout && (
         <SectionAbout
@@ -42,7 +42,7 @@ const Index = ({ data }) => {
 export default Index;
 
 export const pageQuery = graphql`
-  query {
+  query About {
     site {
       siteMetadata {
         name
@@ -70,10 +70,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
-      limit: 5
-    ) {
+    allMarkdownRemark(sort: {frontmatter: {date: DESC}}, limit: 5) {
       edges {
         node {
           excerpt
