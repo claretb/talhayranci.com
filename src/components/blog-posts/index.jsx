@@ -8,6 +8,7 @@ const BlogPosts = ({ posts }) => {
     <Section title="All Blog Posts">
       {posts.map((post) => (
         <SummaryItem
+          date={post.node.frontmatter.date}
           key={post.node.fields.slug}
           name={post.node.frontmatter.title}
           description={post.node.frontmatter.description}

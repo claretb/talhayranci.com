@@ -1,7 +1,5 @@
 import React from 'react';
 
-import profileImg from '../../images/AkdereUlu.jpg';
-
 const classes = {
   wrapper: 'p-8 relative max-w-screen-xl xs:p-24',
   outerWrapper: 'relative',

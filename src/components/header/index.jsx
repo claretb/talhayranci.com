@@ -5,10 +5,9 @@ import {
   FaLinkedin,
   FaSquareEnvelope,
   FaSquareGithub,
-  FaSquarePen,
   FaSquareXTwitter,
 } from 'react-icons/fa6';
-import { FaAtom, FaHome, FaMedium } from 'react-icons/fa';
+import { FaMedium } from 'react-icons/fa';
 
 import profileImg from '../../images/profile.jpeg';
 
@@ -59,6 +58,7 @@ const Header = ({ metadata = {} }) => {
           {twitter && (
             <li className={classes.item}>
               <a
+                aria-label="twitter"
                 className={classes.link}
                 href={`https://twitter.com/${twitter}`}
               >
@@ -68,25 +68,25 @@ const Header = ({ metadata = {} }) => {
           )}
           {github && (
             <li className={classes.item}>
-              <a className={classes.link} href={github}>
+              <a aria-label="github" className={classes.link} href={github}>
                 <FaSquareGithub size={'25'} />
               </a>
             </li>
           )}
           {linkedin && (
             <li className={classes.item}>
-              <a className={classes.link} href={linkedin}>
+              <a aria-label="linkedin" className={classes.link} href={linkedin}>
                 <FaLinkedin size={'25'} />
               </a>
             </li>
           )}
           <li className={classes.item}>
-            <a className={classes.link} href={musavver}>
+            <a aria-label="medium" className={classes.link} href={musavver}>
               <FaMedium size={'25'} />
             </a>
           </li>
           <li className={classes.item}>
-            <a className={classes.link} href={mail}>
+            <a aria-label="mail" className={classes.link} href={mail}>
               <FaSquareEnvelope size={'25'} />
             </a>
           </li>
