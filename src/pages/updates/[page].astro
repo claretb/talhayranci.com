@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UpdatesList from '../../components/UpdatesList.astro';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  const updatesPerPage = 5;
+  const totalPages = Math.ceil(site.updates.length / updatesPerPage);
+  return Array.from({ length: Math.max(totalPages - 1, 0) }, (_, index) => {
+    const page = index + 2;
+    const start = (page - 1) * updatesPerPage;
+    return {
+      params: { page: String(page) },
+      props: {
+        page,
+        totalPages,
+        updates: site.updates.slice(start, start + updatesPerPage),
+      },
+    };
+  });
+}
+
+const { page, totalPages, updates } = Astro.props;
+---
+
+<BaseLayout
+  title={`Updates — Page ${page}`}
+  description={`News and personal updates from ${site.name}.`}
+>
+  <section class="page-intro compact" aria-labelledby="updates-title">
+    <p class="eyebrow">Archive</p>
+    <h1 id="updates-title">Last Updates</h1>
+    <UpdatesList updates={updates} currentPage={page} totalPages={totalPages} />
+  </section>
+</BaseLayout>

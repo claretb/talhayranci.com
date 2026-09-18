@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import profile from '../images/profile.jpeg';
+import backdrop from '../images/MelikeSultan.jpg';
+import { navigation, site } from '../data/site';
+import FontAwesomeIcon from './FontAwesomeIcon.astro';
+import {
+  faLinkedin,
+  faSquareGithub,
+  faSquareXTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import { faSquareEnvelope } from '@fortawesome/free-solid-svg-icons';
+const path = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="hero" style={`--hero-image: url(${backdrop.src})`}>
+  <a class="portrait-link" href="/" aria-label={`${site.name}, home`}>
+    <Image
+      class="portrait"
+      src={profile}
+      alt={`Portrait of ${site.name}`}
+      width={176}
+      height={176}
+      loading="eager"
+    />
+  </a>
+  <div class="hero-content">
+    <p class="eyebrow">Researcher · Computer Scientist</p>
+    <a class="site-name" href="/">
+      {site.name}
+    </a>
+    <p class="tagline">{site.description}</p>
+    <nav aria-label="Main navigation">
+      <ul class="nav-list">
+        {navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <ul class="social-list" aria-label="Social links">
+      <li>
+        <a
+          href={site.social.x}
+          rel="me noopener"
+          target="_blank"
+          aria-label="X"
+        >
+          <FontAwesomeIcon icon={faSquareXTwitter} />
+        </a>
+      </li>
+      <li>
+        <a
+          href={site.social.github}
+          rel="me noopener"
+          target="_blank"
+          aria-label="GitHub"
+        >
+          <FontAwesomeIcon icon={faSquareGithub} />
+        </a>
+      </li>
+      <li>
+        <a
+          href={site.social.linkedin}
+          rel="me noopener"
+          target="_blank"
+          aria-label="LinkedIn"
+        >
+          <FontAwesomeIcon icon={faLinkedin} />
+        </a>
+      </li>
+      <li>
+        <a
+          href={site.social.musavver}
+          rel="noopener"
+          target="_blank"
+          aria-label="Musavver"
+        >
+          <svg viewBox="0 0 448 512" aria-hidden="true">
+            <path d="M0 32v448h448V32H0Zm372.2 106.1-24 23c-2.1 1.6-3.1 4.2-2.7 6.7v169.3c-.4 2.6.6 5.2 2.7 6.7l23.5 23v5.1h-118V367l24.3-23.6c2.4-2.4 2.4-3.1 2.4-6.7V199.8l-67.6 171.6h-9.1L125 199.8v115c-.7 4.8 1 9.7 4.4 13.2l31.6 38.3v5.1H71.2v-5.1l31.6-38.3c3.4-3.5 4.9-8.4 4.1-13.2v-133c.4-3.7-1-7.3-3.8-9.8L75 138.1V133h87.3l67.4 148L289 133.1h83.2v5Z"></path>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href={`mailto:${site.email}`} aria-label="Email">
+          <FontAwesomeIcon icon={faSquareEnvelope} />
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>

@@ -1,0 +1,9 @@
+{
+  "name": "Talha Enes Ayranci",
+  "short_name": "Talha Ayranci",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#f8faf7",
+  "theme_color": "#f8faf7",
+  "icons": [{ "src": "/favicon.png", "sizes": "512x512", "type": "image/png" }]
+}

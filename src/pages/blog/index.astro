@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { byNewest, contentSlug, formatDate } from '../../utils/content';
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  byNewest
+);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Writing about robotics, machine learning, education and software by Talha Enes Ayranci."
+>
+  <section class="page-intro compact">
+    <p class="eyebrow">Blog</p>
+    <h1>Notes from research and life.</h1>
+  </section>
+  <div class="card-grid">
+    {posts.map((post) => (
+      <ContentCard
+        title={post.data.title}
+        description={post.data.description}
+        href={`/blog/${contentSlug(post.id)}/`}
+        meta={formatDate(post.data.date)}
+      />
+    ))}
+  </div>
+</BaseLayout>

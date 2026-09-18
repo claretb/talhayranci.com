@@ -1,0 +1,42 @@
+---
+import ContentCard from './ContentCard.astro';
+import { formatDate } from '../utils/content';
+
+interface Update {
+  date: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  updates: readonly Update[];
+  currentPage: number;
+  totalPages: number;
+}
+
+const { updates, currentPage, totalPages } = Astro.props;
+const previousHref = currentPage === 2 ? '/' : `/updates/${currentPage - 1}/`;
+const nextHref = `/updates/${currentPage + 1}/`;
+---
+
+<div class="timeline">
+  {updates.map((update) => (
+    <ContentCard
+      title={update.title}
+      description={update.description}
+      meta={formatDate(new Date(`${update.date}T12:00:00Z`))}
+    />
+  ))}
+</div>
+
+{totalPages > 1 && (
+  <nav class="pagination" aria-label="Updates pagination">
+    <div>{currentPage > 1 && <a href={previousHref}>← Newer updates</a>}</div>
+    <span>
+      Page {currentPage} of {totalPages}
+    </span>
+    <div>
+      {currentPage < totalPages && <a href={nextHref}>Older updates →</a>}
+    </div>
+  </nav>
+)}

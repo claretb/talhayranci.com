@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import UpdatesList from '../components/UpdatesList.astro';
+import { site } from '../data/site';
+
+const updatesPerPage = 5;
+const totalPages = Math.ceil(site.updates.length / updatesPerPage);
+---
+
+<BaseLayout>
+  <section class="page-intro compact">
+    <h1>About Me</h1>
+    {site.about.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </section>
+  <section class="page-intro compact" aria-labelledby="updates-title">
+    <h1 id="updates-title">Last Updates</h1>
+    <UpdatesList
+      updates={site.updates.slice(0, updatesPerPage)}
+      currentPage={1}
+      totalPages={totalPages}
+    />
+  </section>
+</BaseLayout>

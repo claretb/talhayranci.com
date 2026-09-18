@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { byNewest, contentSlug, formatDate } from '../../utils/content';
+const projects = (
+  await getCollection('projects', ({ data }) => !data.draft)
+).sort(byNewest);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Robotics, machine learning and software projects by Talha Enes Ayranci."
+>
+  <section class="page-intro compact">
+    <p class="eyebrow">Projects</p>
+    <h1>Things I have researched, designed and built.</h1>
+  </section>
+  <div class="card-grid projects-grid">
+    {projects.map((project) => (
+      <ContentCard
+        title={project.data.title}
+        description={project.data.description}
+        href={`/projects/${contentSlug(project.id)}/`}
+        meta={formatDate(project.data.date)}
+        tags={project.data.technologies}
+      />
+    ))}
+  </div>
+</BaseLayout>

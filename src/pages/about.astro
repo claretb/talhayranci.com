@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import ContentCard from '../components/ContentCard.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="About"
+  description={`About ${site.name}, a PhD candidate in Computing Science at the University of Glasgow.`}
+>
+  <section class="page-intro compact">
+    <p class="eyebrow">About</p>
+    <h1>About Me</h1>
+    {site.extendedAbout.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+    <a
+      class="button primary"
+      href={site.resumeUrl}
+      target="_blank"
+      rel="noopener"
+    >
+      View résumé (PDF)<span class="sr-only"> (opens in a new tab)</span>
+    </a>
+  </section>
+  <Section title="Education">
+    <div class="timeline">
+      {site.education.map((item) => (
+        <ContentCard
+          title={item.title}
+          description={item.description}
+          meta={item.period}
+        />
+      ))}
+    </div>
+  </Section>
+  <Section title="Experience">
+    <div class="timeline">
+      {site.experience.map((item) => (
+        <ContentCard
+          title={item.title}
+          description={item.description}
+          meta={item.period}
+        />
+      ))}
+    </div>
+  </Section>
+</BaseLayout>
